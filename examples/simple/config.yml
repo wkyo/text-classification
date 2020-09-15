@@ -1,0 +1,3 @@
+lang: en
+data:
+  dataset: imdb_mini.pickle.gz
