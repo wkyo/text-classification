@@ -32,9 +32,9 @@ def main():
 
     parser = ArgumentParser()
     parser.add_argument('--project', default='.')
-    parser.add_argument('--data', default='data')
-    parser.add_argument('--models', default='models')
-    parser.add_argument('--config', default='config.yml')
+    # parser.add_argument('--data', default='data')
+    # parser.add_argument('--models', default='models')
+    # parser.add_argument('--config', default='config.yml')
     parser.add_argument('--lang', default=None, choices=['cn', 'en'])
 
     parsers = parser.add_subparsers(dest='cmd', help='subcommand')
