@@ -41,6 +41,14 @@ optional arguments:
 export PYTHONPATH=$(pwd):$PYTHONPATH
 ```
 
+### 查看支持的模型
+
+```
+$ python -m text_classification --ls
+
+['text_rcnn', 'text_cnn', 'simple_rnn', 'simple_cnn']
+```
+
 ### 模型训练
 
 ```sh
@@ -54,14 +62,6 @@ python -m text_classification --data data/zh_hotel_review.csv --data-field-text 
   - `data-field-text` 原始数据，对应文本列的列名，默认为`text`
 - `models` 存放所有模型的目录，所有模型按照`model-[iso time format]`格式存放于此路径下。默认会使用当前路径下的`models`目录。
 - `model` 训练所使用的模型的名称
-
-### 查看支持的模型
-
-```
-$ python -m text_classification --ls
-
-['text_rcnn', 'text_cnn', 'simple_rnn', 'simple_cnn']
-```
 
 ### 数据预测
 
