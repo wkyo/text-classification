@@ -1,64 +1,56 @@
 # coding: utf-8
 import os
+import warnings
+import logging
 
-from .text_classification import TextClassifier
-
-
-def subcommand_init(args):
-    """Initialize a text classification project"""
-    project = args.project
-    if not os.path.exists(project):
-        os.mkdir(project)
-    for item in ['data', 'models']:
-        os.mkdir(os.path.join(project, item))
-    with open(os.path.join(project, 'config.yml'), 'wt'):
-        pass
-
-
-def subcommand_train(args):
-    tc = TextClassifier(proj_dir=args.project, lang=args.lang)
-    tc.train(args.model)
-
-
-def subcommand_predict(args):
-    tc = TextClassifier(proj_dir=args.project)
-    tc.load_model(args.model)
-    for label in tc.predict(args.texts):
-        print(label)
+from .classifier import Classifier
+from .model_loader import scan_models
 
 
 def main():
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('--project', default='.')
-    # parser.add_argument('--data', default='data')
-    # parser.add_argument('--models', default='models')
-    # parser.add_argument('--config', default='config.yml')
-    parser.add_argument('--lang', default=None, choices=['cn', 'en'])
-
-    parsers = parser.add_subparsers(dest='cmd', help='subcommand')
-
-    subparser_init = parsers.add_parser('init')
-
-    subparser_train = parsers.add_parser('train')
-    subparser_train.add_argument('--model', default='TextCNN')
-
-    subparser_predict = parsers.add_parser('predict')
-    subparser_predict.add_argument('--model', default=None, help='model path')
-    subparser_predict.add_argument('texts', nargs='+')
+    parser.add_argument('--data', default='data.csv', help='data path')
+    parser.add_argument('--data-field-label', default='label')
+    parser.add_argument('--data-field-text', default='text')
+    parser.add_argument('--models', default='models', help='models directory')
+    parser.add_argument('--load-model', default=None,
+                        help='the path of the model to be loaded')
+    parser.add_argument('--model', default='text_cnn',
+                        help='model name, used in training phase')
+    parser.add_argument('--train', default=False,
+                        action='store_true', help='train model')
+    parser.add_argument('--ls', default=False,
+                        action='store_true', help='list all supported models')
+    parser.add_argument('texts', nargs='*')
 
     args = parser.parse_args()
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format=r'%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+    )
 
-    actions = {
-        'init': subcommand_init,
-        'train': subcommand_train,
-        'predict': subcommand_predict
-    }
-
-    subcommand = actions.get(args.cmd)
-    if subcommand:
-        subcommand(args)
+    if args.ls:
+        print(scan_models())
+    elif args.train:
+        text_classifier = Classifier(
+            data_path=args.data,
+            models_path=args.models,
+            data_field_label=args.data_field_label,
+            data_field_text=args.data_field_text
+        )
+        text_classifier.train(args.model)
+    else:
+        if not args.texts:
+            warnings.warn('No input texts found')
+        text_classifier = Classifier(
+            models_path=args.models,
+            model_path=args.load_model
+        )
+        labels = text_classifier.predict(args.texts)
+        print('Predict results:')
+        print('>> {}'.format(labels))
 
 
 if __name__ == "__main__":
