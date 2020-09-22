@@ -1,6 +1,7 @@
 # coding: utf-8
 import os
 import importlib
+import logging
 
 import keras
 from keras_preprocessing.text import Tokenizer
@@ -64,9 +65,10 @@ class ModelLoader:
             tokenizer.word_index = self.data_dict['word_index']
         self.tokenizer = tokenizer
 
-    def predict(self, texts, maxlen=None):
+    def predict(self, texts, maxlen=256):
+        # BUG: for model based on convolution, the maxlen must larger than kernel size
         sequences = self.tokenizer.texts_to_sequences(texts)
-        sequences = pad_sequences(sequences, maxlen=None)
+        sequences = pad_sequences(sequences, maxlen=maxlen)
         y_pred = self.model.predict(sequences)
         y_indices = np.argmax(y_pred, axis=-1)
         labels = [self.classes[idx] for idx in y_indices]
