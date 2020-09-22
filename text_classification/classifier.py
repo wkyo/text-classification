@@ -20,7 +20,8 @@ class Classifier:
                  data_field_label='label',
                  data_field_text='text',
                  models_path='models',
-                 model_path=None):
+                 model_path=None,
+                 model_auto_load=True):
         self.data_path = data_path
         self.data_field_label = data_field_label
         self.data_field_text = data_field_text
@@ -32,7 +33,8 @@ class Classifier:
 
         self.maxlen = 256
 
-        self.load_model(model_path)
+        if model_auto_load:
+            self.load_model(model_path)
 
     def _gen_timed_model_name(self):
         now = datetime.now()

@@ -38,7 +38,8 @@ def main():
             data_path=args.data,
             models_path=args.models,
             data_field_label=args.data_field_label,
-            data_field_text=args.data_field_text
+            data_field_text=args.data_field_text,
+            model_auto_load=False
         )
         text_classifier.train(args.model)
     else:
