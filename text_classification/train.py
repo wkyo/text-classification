@@ -21,7 +21,7 @@ def train_model(model,
                 batch_size=128,
                 monitor='val_accuracy'):
     # check keras model is compiled
-    if not getattr(model, 'compiled_loss'):
+    if not getattr(model, 'compiled_loss', None):
         model.compile(
             optimizer='adam',
             metrics=['accuracy'],

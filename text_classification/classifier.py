@@ -32,8 +32,7 @@ class Classifier:
 
         self.maxlen = 256
 
-        if model_path:
-            self.load_model(model_path)
+        self.load_model(model_path)
 
     def _gen_timed_model_name(self):
         now = datetime.now()
@@ -110,13 +109,11 @@ class Classifier:
         if not path:
             path = self.get_lastest_model()
 
-        if not os.path.isdir(path):
-            raise ValueError('model path is not a directory <{}>'.format(path))
-
-        self.loaded_model = ModelLoader.load(
-            model_path=path,
-            tokenizer=self.tokenizer_cls(),
-        )
+        if path and os.path.isdir(path):
+            self.loaded_model = ModelLoader.load(
+                model_path=path,
+                tokenizer=self.tokenizer_cls(),
+            )
 
     def predict(self, texts):
         return self.loaded_model.predict(texts)
