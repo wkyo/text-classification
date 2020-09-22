@@ -35,9 +35,6 @@ def main():
         format=r'%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 
-    print(args)
-    # return
-
     if args.ls:
         print(scan_models())
     elif args.train:
