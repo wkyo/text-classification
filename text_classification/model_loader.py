@@ -78,6 +78,10 @@ class ModelLoader:
     def classes(self):
         return self.data_dict['classes']
 
+    @property
+    def word_index(self):
+        return self.data_dict['word_index']
+
     @classmethod
     def load(cls,
              model_path=None,

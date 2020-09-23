@@ -76,6 +76,22 @@ Predict results:
 - `models` 存放所有模型的目录，如果没有提供`load-model`参数，将会自动调用最新的模型。
 - `load-model` 将要加载的模型路径
 
+### Web服务
+
+```sh
+python -m text_classification --server
+```
+
+接口支持如下：
+
+| Name         | Router        | Method | Comment                                        |
+| ------------ | ------------- | ------ | ---------------------------------------------- |
+| 文本分类预测 | `/predict`    | POST   | 对文本序列进行分类，参数为JSON格式的字符串数组 |
+| 分类标签     | `/classes`    | GET    | 获取当前模型所支持的分类标签                   |
+| 单词映射字典 | `/word_index` | GET    | 获取当前模型所使用的单词映射字典               |
+
+
+
 ## 变更历史
 
 ### 2020.09.22

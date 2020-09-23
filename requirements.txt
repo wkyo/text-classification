@@ -1,9 +1,12 @@
+Flask-Cors==3.0.9
+Flask==1.1.2
 jieba==0.42.1
-Keras==2.4.3
 Keras-Preprocessing==1.1.0
+Keras==2.4.3
 numpy==1.19.1
 openpyxl==3.0.5
+PyYAML==5.3.1
 scikit-learn==0.23.2
 tensorboard==2.2.1
-tensorflow==2.2.0
 tensorflow-estimator==2.2.0
+tensorflow==2.2.0
