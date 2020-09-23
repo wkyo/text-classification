@@ -1,0 +1,9 @@
+version: '3'
+services:
+  text_classification:
+    build: .
+    image: text_classification:v0.1
+    volumes:
+      - ./build:/app/instance
+    ports:
+      - 7001:7001

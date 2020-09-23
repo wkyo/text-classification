@@ -90,7 +90,20 @@ python -m text_classification --server
 | 分类标签     | `/classes`    | GET    | 获取当前模型所支持的分类标签                   |
 | 单词映射字典 | `/word_index` | GET    | 获取当前模型所使用的单词映射字典               |
 
+### Docker使用
 
+```sh
+# 导入镜像
+docker load -i text_classification.tar.gz
+# 导出镜像
+docker save -o text_classification.tar.gz text_classification:v0.1
+# 启动镜像
+docker-compose up -d
+# 关闭镜像
+docker-compose down
+```
+
+Note：请现在当前目录创建build，并将models放置在build目录下（如果需要设置自定义路径，请修改`docker-compose.yml`文件）。
 
 ## 变更历史
 

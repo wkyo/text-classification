@@ -14,4 +14,4 @@ debug = False
 # Worker
 # BUG: model will be loaded by each work, so high value may cause memory exhaustion
 workers = 4
-worker_class = 'gevent'
+# worker_class = 'gevent'
