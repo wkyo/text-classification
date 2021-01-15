@@ -3,9 +3,10 @@ import os
 import json
 
 import numpy as np
-from keras.callbacks import ModelCheckpoint
-from keras.callbacks import TensorBoard
-from keras.callbacks import EarlyStopping
+import tensorflow as tf
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import EarlyStopping
 
 from .keras_extends.callbacks import F1Score
 from .keras_extends.callbacks import HistoryLogger
